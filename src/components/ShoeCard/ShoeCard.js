@@ -49,10 +49,17 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price discounted={salePrice !== null}>
+            {formatPrice(price)}
+          </Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {salePrice &&
+            <SalePrice>
+              {formatPrice(salePrice)}
+            </SalePrice>
+          }
         </Row>
       </Wrapper>
     </Link>
@@ -93,6 +100,7 @@ const Row = styled.div`
   font-size: 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 `;
 
 const Name = styled.h3`
@@ -100,7 +108,10 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  color: ${props => props.discounted ? COLORS.gray['700'] : 'inherit'};
+  text-decoration: ${props => props.discounted ? 'line-through' : 'none'};
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
