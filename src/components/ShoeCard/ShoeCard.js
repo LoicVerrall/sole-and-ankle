@@ -36,6 +36,15 @@ const ShoeCard = ({
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          { variant === 'new-release' ?
+            <Badge backgroundColor={COLORS.secondary}>
+              Just released!
+            </Badge>
+          : variant === 'on-sale' &&
+            <Badge backgroundColor={COLORS.primary}>
+              Sale
+            </Badge>
+          }
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -58,11 +67,22 @@ const Link = styled.a`
   margin: 0.5em;
 `;
 
-const Wrapper = styled.article`
-`;
+const Wrapper = styled.article``;
 
 const ImageWrapper = styled.div`
   position: relative;
+`;
+
+const Badge = styled.div`
+  background-color: ${props => props.backgroundColor || 'black'};
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  padding: 8px 10px;
+  border-radius: 2px;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
 `;
 
 const Image = styled.img`
@@ -71,6 +91,8 @@ const Image = styled.img`
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
